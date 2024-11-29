@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content%}
+<header class="bg-dark text-light py-4">
+  <div class="container">
+    <h1>Welcome to Our Website!</h1>
+    <nav>
+      <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="container mt-4">
+  <section id="featured" class="mb-5">
+    <h2>Featured Content</h2>
+    <p>This is where your featured content goes.</p>
+  </section>
+
+  <section id="latest-news">
+    <h2>Latest News</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">News Title 1</h3>
+            <p class="card-text">Description of the latest news goes here.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">News Title 2</h3>
+            <p class="card-text">Description of the latest news goes here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- You can add more news items dynamically or fetch them via AJAX -->
+  </section>
+</main>
+
+<footer class="bg-dark text-light py-3">
+  <div class="container">
+    <p>&copy; 2024 Your Company. All rights reserved.</p>
+  </div>
+</footer>
+{% endblock %}

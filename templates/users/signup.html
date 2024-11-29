@@ -1,0 +1,108 @@
+{% extends 'base.html' %} {% block title %}User Signup{% endblock %} {% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">User Signup</h2>
+        </div>
+        <div class="card-body">
+          <form id="signupForm" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="first_name">First Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="first_name"
+                name="first_name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="last_name">Last Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="last_name"
+                name="last_name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+              />
+            </div>
+            <small id="error_message" class="text-danger"></small>
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+          <div class="text-center mt-3">
+            <p>Already have an account? <a href="/login">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  $(document).ready(function () {
+    $("#signupForm").submit(function (e) {
+      e.preventDefault(); // Prevent form submission
+
+      var formData = {
+        first_name: $("#first_name").val(),
+        last_name: $("#last_name").val(),
+        email: $("#email").val(),
+        password: $("#password").val(),
+      };
+
+      // Send AJAX POST request
+      $.ajax({
+        type: "POST",
+        url: "/signup/",
+        data: JSON.stringify(formData),
+        contentType: "application/json",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+        dataType: "json",
+        success: function (data) {
+          if (data.registered) {
+            window.location.assign("/login/");
+          } else if (data.error_message) {
+            $("#error_message").text(`${data.error_message}`);
+            window.location.reload(true);
+          } else {
+            $("#error_message").text("Failed to register user.");
+          }
+        },
+        error: function (xhr, errmsg, err) {
+          $("#error_message").text(
+            "Error: " + xhr.status + ": " + xhr.responseText
+          );
+        },
+      });
+    });
+  });
+</script>
+{% endblock %}
