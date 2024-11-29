@@ -1,0 +1,12 @@
+django==5.0.2
+python-dotenv==1.0.1
+isort==5.13.2
+black==24.2.0
+celery==5.3.6
+django-celery-beat==2.1.0
+django-celery-results==2.5.1
+psycopg2-binary==2.9.9
+JSON-log-formatter==0.5.2
+ujson==5.9.0
+sendgrid==6.11.0
+dataclass-type-validator==0.1.2

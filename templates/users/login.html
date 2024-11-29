@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block content%}
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Login</h2>
+        </div>
+        <div class="card-body">
+          <form id="loginForm" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              Login
+            </button>
+          </form>
+          <div class="text-center mt-3">
+            <p>Don't have an account? <a href="/signup/">Sign up</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  $(document).ready(function () {
+    // AJAX for user login
+    $("#loginForm").submit(function (event) {
+      event.preventDefault();
+      var formData = {
+        email: $("input[name=email]").val(),
+        password: $("input[name=password]").val(),
+      };
+      $.ajax({
+        type: "POST",
+        url: "/login/",
+        data: JSON.stringify(formData),
+        contentType: "application/json",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+        success: function (response) {
+          if (response.logged_in) {
+            window.location.href = "/";
+          } else {
+            window.location.reload(true);
+          }
+        },
+        error: function (xhr, errmsg, err) {
+          console.log(xhr.status + ": " + xhr.responseText);
+          alert("Login failed! Please try again.");
+        },
+      });
+    });
+  });
+</script>
+{% endblock %}
