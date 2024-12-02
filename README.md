@@ -46,7 +46,7 @@ This Django project is designed to provide user management functionalities with 
 
    ```bash
    git clone https://github.com/rachit-patel-dev/django-work-sample.git
-   cd user_management_project
+   cd django-work-sample
    ```
 
 2. Install dependencies:
