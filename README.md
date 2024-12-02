@@ -45,7 +45,7 @@ This Django project is designed to provide user management functionalities with 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/citrusbug/user_management_project.git
+   git clone https://github.com/rachit-patel-dev/django-work-sample.git
    cd user_management_project
    ```
 
